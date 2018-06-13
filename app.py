@@ -1,8 +1,9 @@
 import requests
 import json
+import sys
 
-assets_file_name = "assets.json"
 '''
+assets.json contents
 [
     {
         "buying_price": 4.3252,
@@ -52,8 +53,6 @@ def calc(assets):
             "An error occured while fetching. Error: {}".format(e.message)
         )
 
-
-
 def calc_total_gain(assets, current_usd = None, current_gold = None):
     gain = 0
 
@@ -69,8 +68,9 @@ def calc_total_gain(assets, current_usd = None, current_gold = None):
     return gain
 
 try:
-    with open(assets_file_name) as json_file:
+    assets_file = sys.argv[1]
+    with open(assets_file) as json_file:
         assets = json.load(json_file)
         calc(assets)
 except Exception as e:
-    print("An error occurred while reading assets from '{}'. Error: {}".format(assets_file_name, e.message))
+    print("An error occurred while reading assets from '{}'. Error: {}".format(assets_file, e.message))
